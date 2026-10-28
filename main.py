@@ -149,6 +149,23 @@ class AplikasiPrediksiDiabetes:
         )
         btn_refresh.grid(row=0, column=2, padx=5, sticky="ew")
         
+        # Tombol untuk tabel
+        table_btn_frame = tk.Frame(table_frame, bg="#f0f0f0")
+        table_btn_frame.grid(row=2, column=0, columnspan=2, pady=(10, 0), sticky="ew")
+        table_btn_frame.grid_columnconfigure((0, 1), weight=1)
+        
+        btn_delete = tk.Button(
+            table_btn_frame, text="HAPUS DATA TERPILIH", command=self.delete_selected,
+            font=("Arial", 10, "bold"), bg="#E74C3C", fg="white", cursor="hand2", pady=3
+        )
+        btn_delete.grid(row=0, column=0, padx=5, sticky="ew")
+        
+        btn_export = tk.Button(
+            table_btn_frame, text="LIHAT DETAIL", command=self.view_detail,
+            font=("Arial", 10, "bold"), bg="#3498DB", fg="white", cursor="hand2", pady=3
+        )
+        btn_export.grid(row=0, column=1, padx=5, sticky="ew")
+        
         # Label Hasil
         self.label_hasil = tk.Label(
             input_frame, text="", font=("Arial", 12, "bold"), bg="#f0f0f0", fg="#000000"
@@ -299,6 +316,47 @@ class AplikasiPrediksiDiabetes:
             self.tree.insert("", "end", values=row)
             
         self.status_bar.config(text=f"Total Data Pasien: {len(rows)}")
+    
+    def delete_selected(self):
+        """Menghapus data terpilih"""
+        selected = self.tree.selection()
+        if not selected:
+            messagebox.showwarning("Peringatan", "Pilih data yang ingin dihapus!")
+            return
+        
+        item = self.tree.item(selected[0])
+        data_id = item['values'][0]
+        nama = item['values'][1]
+        
+        confirm = messagebox.askyesno("Konfirmasi", f"Hapus data pasien {nama}?")
+        if confirm:
+            self.cursor.execute('DELETE FROM data_pasien WHERE id = ?', (data_id,))
+            self.conn.commit()
+            self.load_table_data()
+            messagebox.showinfo("Sukses", f"Data {nama} berhasil dihapus!")
+    
+    def view_detail(self):
+        """Menampilkan detail data terpilih"""
+        selected = self.tree.selection()
+        if not selected:
+            messagebox.showwarning("Peringatan", "Pilih data untuk melihat detail!")
+            return
+        
+        item = self.tree.item(selected[0])
+        values = item['values']
+        
+        detail = f"""
+DETAIL DATA PASIEN
+
+ID             : {values[0]}
+Nama Pasien    : {values[1]}
+Usia           : {values[2]} tahun
+Gula Darah     : {values[3]} mg/dL
+BMI            : {values[4]}
+Riwayat Ortu   : {values[5]}
+Hasil Prediksi : RISIKO {values[6].upper()}
+        """
+        messagebox.showinfo("Detail Data Pasien", detail)
 
     def __del__(self):
         """Menutup koneksi database"""
