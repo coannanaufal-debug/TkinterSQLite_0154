@@ -78,6 +78,20 @@ class AplikasiPrediksiDiabetes:
         )
         self.entry_bmi = tk.Entry(input_frame, font=("Arial", 11), width=40)
         self.entry_bmi.grid(row=3, column=1, pady=8, padx=5)
+        
+        # Riwayat Orang Tua - Combobox
+        tk.Label(input_frame, text="Riwayat Diabetes Orang Tua:", font=("Arial", 11), bg="#f0f0f0").grid(
+            row=4, column=0, sticky="w", pady=8, padx=5
+        )
+        self.combo_riwayat = ttk.Combobox(
+            input_frame,
+            values=["Ya", "Tidak"],
+            state="readonly",
+            font=("Arial", 11),
+            width=38
+        )
+        self.combo_riwayat.grid(row=4, column=1, pady=8, padx=5)
+        self.combo_riwayat.current(1)  # Default "Tidak"
 
 def main():
     root = tk.Tk()
