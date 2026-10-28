@@ -39,6 +39,45 @@ class AplikasiPrediksiDiabetes:
             fg="#333333"
         )
         title_label.pack(pady=20)
+        
+        # Frame untuk input
+        input_frame = tk.LabelFrame(
+            self.root,
+            text=" Input Data Pasien ",
+            font=("Arial", 11, "bold"),
+            bg="#f0f0f0",
+            padx=20,
+            pady=15
+        )
+        input_frame.pack(padx=20, pady=10, fill="x")
+        
+        # Nama Pasien
+        tk.Label(input_frame, text="Nama Pasien:", font=("Arial", 11), bg="#f0f0f0").grid(
+            row=0, column=0, sticky="w", pady=8, padx=5
+        )
+        self.entry_nama = tk.Entry(input_frame, font=("Arial", 11), width=40)
+        self.entry_nama.grid(row=0, column=1, pady=8, padx=5)
+        
+        # Usia
+        tk.Label(input_frame, text="Usia (tahun):", font=("Arial", 11), bg="#f0f0f0").grid(
+            row=1, column=0, sticky="w", pady=8, padx=5
+        )
+        self.entry_usia = tk.Entry(input_frame, font=("Arial", 11), width=40)
+        self.entry_usia.grid(row=1, column=1, pady=8, padx=5)
+        
+        # Gula Darah
+        tk.Label(input_frame, text="Kadar Gula Darah (mg/dL):", font=("Arial", 11), bg="#f0f0f0").grid(
+            row=2, column=0, sticky="w", pady=8, padx=5
+        )
+        self.entry_gula = tk.Entry(input_frame, font=("Arial", 11), width=40)
+        self.entry_gula.grid(row=2, column=1, pady=8, padx=5)
+        
+        # BMI
+        tk.Label(input_frame, text="BMI (Body Mass Index):", font=("Arial", 11), bg="#f0f0f0").grid(
+            row=3, column=0, sticky="w", pady=8, padx=5
+        )
+        self.entry_bmi = tk.Entry(input_frame, font=("Arial", 11), width=40)
+        self.entry_bmi.grid(row=3, column=1, pady=8, padx=5)
 
 def main():
     root = tk.Tk()
