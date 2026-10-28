@@ -28,6 +28,39 @@ class AplikasiPrediksiDiabetes:
             )
         ''')
         self.conn.commit()
+    
+    def prediksi_diabetes(self, gula_darah, bmi, riwayat_ortu):
+        """Menentukan prediksi risiko diabetes berdasarkan kondisi"""
+        # Gula darah ≥ 200 mg/dL → Tinggi/Sangat Tinggi
+        if gula_darah >= 200:
+            if bmi >= 30 or riwayat_ortu == "Ya":
+                return "Sangat Tinggi", "#8B0000"
+            else:
+                return "Tinggi", "#DC143C"
+        
+        # Gula darah 140-199 mg/dL → Sedang/Tinggi
+        elif 140 <= gula_darah < 200:
+            if bmi >= 30 and riwayat_ortu == "Ya":
+                return "Tinggi", "#DC143C"
+            elif bmi >= 30 or riwayat_ortu == "Ya":
+                return "Sedang", "#FF8C00"
+            else:
+                return "Sedang", "#FF8C00"
+        
+        # Gula darah < 140 mg/dL dan BMI ≥ 30 → Waspada/Sedang
+        elif gula_darah < 140 and bmi >= 30:
+            if riwayat_ortu == "Ya":
+                return "Sedang", "#FF8C00"
+            else:
+                return "Waspada", "#FFD700"
+        
+        # Gula darah < 140 mg/dL, BMI < 30, ada riwayat → Waspada
+        elif gula_darah < 140 and bmi < 30 and riwayat_ortu == "Ya":
+            return "Waspada", "#FFD700"
+        
+        # Gula darah < 140 mg/dL, BMI < 30, tidak ada riwayat → Rendah
+        else:
+            return "Rendah", "#228B22"
         
     def create_widgets(self):
         """Membuat komponen GUI"""
