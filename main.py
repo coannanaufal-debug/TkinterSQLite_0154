@@ -253,15 +253,19 @@ class AplikasiPrediksiDiabetes:
             bmi = float(bmi)
 
             if usia <= 0 or usia > 150:
-                messagebox.showerror("Error", "Usia tidak valid (1-150 tahun)!")
+                messagebox.showerror("Error", "Usia tidak valid! Masukkan usia antara 1-150 tahun.")
                 return
 
             if gula < 0 or gula > 600:
-                messagebox.showerror("Error", "Kadar gula darah tidak valid (0-600 mg/dL)!")
+                messagebox.showerror("Error", "Kadar gula darah tidak valid! Masukkan nilai antara 0-600 mg/dL.")
                 return
 
             if bmi < 10 or bmi > 60:
-                messagebox.showerror("Error", "BMI tidak valid (10-60)!")
+                messagebox.showerror("Error", "BMI tidak valid! Masukkan BMI antara 10-60.")
+                return
+            
+            if not riwayat or riwayat not in ["Ya", "Tidak"]:
+                messagebox.showerror("Error", "Pilih riwayat diabetes orang tua (Ya/Tidak)!")
                 return
 
             # Prediksi
