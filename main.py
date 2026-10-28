@@ -149,23 +149,6 @@ class AplikasiPrediksiDiabetes:
         )
         btn_refresh.grid(row=0, column=2, padx=5, sticky="ew")
         
-        # Tombol untuk tabel
-        table_btn_frame = tk.Frame(table_frame, bg="#f0f0f0")
-        table_btn_frame.grid(row=2, column=0, columnspan=2, pady=(10, 0), sticky="ew")
-        table_btn_frame.grid_columnconfigure((0, 1), weight=1)
-        
-        btn_delete = tk.Button(
-            table_btn_frame, text="HAPUS DATA TERPILIH", command=self.delete_selected,
-            font=("Arial", 10, "bold"), bg="#E74C3C", fg="white", cursor="hand2", pady=3
-        )
-        btn_delete.grid(row=0, column=0, padx=5, sticky="ew")
-        
-        btn_export = tk.Button(
-            table_btn_frame, text="LIHAT DETAIL", command=self.view_detail,
-            font=("Arial", 10, "bold"), bg="#3498DB", fg="white", cursor="hand2", pady=3
-        )
-        btn_export.grid(row=0, column=1, padx=5, sticky="ew")
-        
         # Label Hasil
         self.label_hasil = tk.Label(
             input_frame, text="", font=("Arial", 12, "bold"), bg="#f0f0f0", fg="#000000"
@@ -221,6 +204,23 @@ class AplikasiPrediksiDiabetes:
         self.tree.heading("BMI", text="BMI", anchor="center")
         self.tree.heading("Riwayat Ortu", text="Riwayat Ortu", anchor="center")
         self.tree.heading("Hasil Prediksi", text="Hasil Prediksi", anchor="center")
+        
+        # Tombol untuk tabel
+        table_btn_frame = tk.Frame(table_frame, bg="#f0f0f0")
+        table_btn_frame.grid(row=2, column=0, columnspan=2, pady=(10, 0), sticky="ew")
+        table_btn_frame.grid_columnconfigure((0, 1), weight=1)
+        
+        btn_delete = tk.Button(
+            table_btn_frame, text="HAPUS DATA TERPILIH", command=self.delete_selected,
+            font=("Arial", 10, "bold"), bg="#E74C3C", fg="white", cursor="hand2", pady=3
+        )
+        btn_delete.grid(row=0, column=0, padx=5, sticky="ew")
+        
+        btn_export = tk.Button(
+            table_btn_frame, text="LIHAT DETAIL", command=self.view_detail,
+            font=("Arial", 10, "bold"), bg="#3498DB", fg="white", cursor="hand2", pady=3
+        )
+        btn_export.grid(row=0, column=1, padx=5, sticky="ew")
         
         self.status_bar = tk.Label(
             self.root, text="Siap - Masukkan data pasien", font=("Arial", 9),
